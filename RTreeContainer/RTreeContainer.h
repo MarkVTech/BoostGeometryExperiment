@@ -1,7 +1,6 @@
 #pragma once
 
-#include <QDebug>
-
+#include <memory>
 #include <vector>
 #include <tuple>
 
@@ -12,6 +11,8 @@
 
 #include <boost/geometry/index/rtree.hpp>
 
+#include <QDebug>
+
 namespace bg = boost::geometry;
 namespace bgi = boost::geometry::index;
 
@@ -21,10 +22,27 @@ class RTreeContainer
 public:
     static const int pointDiam=10;
 
+    struct Info
+    {
+        Info(unsigned int id, unsigned char type) :
+            id(id),
+            type(type) {}
+
+        Info& operator=(const Info& other)
+        {
+            id = other.id;
+            type = other.type;
+            return *this;
+        }
+
+        unsigned int id;
+        unsigned char type;
+    };
+
     typedef bg::model::point<unsigned int, 2, bg::cs::cartesian> Point;
     typedef bg::model::box<Point> Box;
-    typedef std::tuple<Box, unsigned int, unsigned char> BoxValue;
-    typedef std::pair<Point, unsigned int> PointValue;
+    //typedef std::tuple<Box, unsigned int, unsigned char> BoxValue;
+    typedef std::pair<Box, Info> BoxValue;
     typedef bgi::rtree<BoxValue, bgi::rstar<16,4>> RTree;
 
     RTreeContainer();

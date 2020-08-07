@@ -8,13 +8,13 @@ using namespace std::placeholders;
 bool IsPoint(RTreeContainer::BoxValue const& v)
 {
     qDebug() << __PRETTY_FUNCTION__;
-    return std::get<2>(v) == 1;
+    return v.second.type == 1;
 }
 
 bool IsRect(RTreeContainer::BoxValue const& v)
 {
     qDebug() << __PRETTY_FUNCTION__;
-    return std::get<2>(v) == 0;
+    return v.second.type == 0;
 }
 
 RTreeContainer::RTreeContainer()
@@ -26,9 +26,7 @@ void RTreeContainer::addBox(double x, double y, double width, double height, uns
     qDebug() << __PRETTY_FUNCTION__;
     bool isTriv = std::is_trivially_assignable<Box, Box>();
     qDebug() << "isTriv = " << isTriv;
-    isTriv = std::is_trivially_assignable<unsigned int, unsigned int>();
-    qDebug() << "isTriv = " << isTriv;
-    isTriv = std::is_trivially_assignable<unsigned char, unsigned char>();
+    isTriv = std::is_trivially_assignable<Info, Info>();
     qDebug() << "isTriv = " << isTriv;
     isTriv = std::is_trivially_assignable<BoxValue, BoxValue>();
     qDebug() << "isTriv = " << isTriv;
@@ -39,7 +37,7 @@ void RTreeContainer::addBox(double x, double y, double width, double height, uns
 
     RTreeContainer::Box b(p1, p2);
 
-    mRTree.insert(std::make_tuple(b, id, 0));
+    mRTree.insert(std::make_pair(b, Info(id, 0)));
 }
 
 void RTreeContainer::addPoint(double x, double y, unsigned int id)
@@ -47,9 +45,7 @@ void RTreeContainer::addPoint(double x, double y, unsigned int id)
     qDebug() << __PRETTY_FUNCTION__;
     bool isTriv = std::is_trivially_copyable<Point>();
     qDebug() << "isTriv = " << isTriv;
-    isTriv = std::is_trivially_copyable<unsigned int>();
-    qDebug() << "isTriv = " << isTriv;
-    isTriv = std::is_trivially_copyable<unsigned char>();
+    isTriv = std::is_trivially_copyable<Info>();
     qDebug() << "isTriv = " << isTriv;
     isTriv = std::is_trivially_copyable<BoxValue>();
 
@@ -57,7 +53,7 @@ void RTreeContainer::addPoint(double x, double y, unsigned int id)
     RTreeContainer::Point p2(x+pointDiam, y+pointDiam);
 
     RTreeContainer::Box pointBox(p1, p2);
-    mRTree.insert(std::make_tuple(pointBox, id, 1));
+    mRTree.insert(std::make_pair(pointBox, Info(id, 1)));
 }
 
 std::vector<unsigned int> RTreeContainer::within(double x, double y, double width, double height, unsigned int itemType)
@@ -80,7 +76,7 @@ std::vector<unsigned int> RTreeContainer::within(double x, double y, double widt
                                                          //bgi::satisfies(IsRect));
           it != mRTree.qend(); ++it )
     {
-        result.push_back(std::get<1>(*it));
+        result.push_back(it->second.id);
     }
 
     return result;

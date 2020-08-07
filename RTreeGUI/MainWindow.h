@@ -22,9 +22,9 @@ public:
     static constexpr unsigned int maxBoxSize = 100;
     static constexpr unsigned int pointDiameter = 5;
     static constexpr unsigned int minXPos = 10;
-    static constexpr unsigned int maxXPos = 512;
+    static constexpr unsigned int maxXPos = 600;
     static constexpr unsigned int minYPos = 10;
-    static constexpr unsigned int maxYPos = 512;
+    static constexpr unsigned int maxYPos = 440;
 
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
