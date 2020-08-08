@@ -31,6 +31,7 @@ public:
 
 private slots:
     void handleSelectionAreaChanged(const QRectF& selectionRect);
+    void handleMouseMove(double x, double y);
 
     void on_actionAdd_Random_Point_triggered();
     void on_actionAdd_Random_Box_triggered();

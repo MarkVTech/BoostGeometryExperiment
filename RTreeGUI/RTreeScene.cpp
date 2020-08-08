@@ -35,13 +35,6 @@ void RTreeScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
 
-    qDebug() << __PRETTY_FUNCTION__;
-
-    if ( mMode == "nearest" )
-    {
-        qDebug() << "NEAREST!";
-    }
-
     if ( mMode == "box" )
     {
         if ( !mSelectionRectItem )
@@ -53,6 +46,10 @@ void RTreeScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
         mSelectionRectItem->setRect(mSelectionRect);
     }
+    else
+    {
+        emit mouseMove(event->scenePos().x(), event->scenePos().y());
+    }
 
     QGraphicsScene::mouseMoveEvent(event);
 }
@@ -63,7 +60,6 @@ void RTreeScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         if ( mSelectionRectItem )
         {
-            qDebug() << "mSelectionRectItem = " << mSelectionRectItem << ", Selection area is " << mSelectionRect;
             delete mSelectionRectItem;
             mSelectionRectItem = nullptr;
 
@@ -77,15 +73,4 @@ void RTreeScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void RTreeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-}
-
-
-bool RTreeScene::event(QEvent *event)
-{
-    Q_UNUSED(event)
-    //qDebug() << __PRETTY_FUNCTION__ << " type is " << event->type();
-    if ( event->type() == QEvent::MouseMove )
-        qDebug() << "HEY HEY HEY!";
-
-    return QGraphicsScene::event(event);
 }

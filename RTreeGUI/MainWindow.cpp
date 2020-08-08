@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
     connect(mScene, SIGNAL(selectionAreaChanged(QRectF)), this, SLOT(handleSelectionAreaChanged(QRectF)));
+    connect(mScene, SIGNAL(mouseMove(double, double)), this, SLOT(handleMouseMove(double, double)));
 }
 
 MainWindow::~MainWindow()
@@ -47,12 +48,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleSelectionAreaChanged(const QRectF &selectionRect)
 {
-    qDebug() << __PRETTY_FUNCTION__ << " selection: " << selectionRect;
+    if ( mCurrentlySelected.size() > 0 )
+        on_actionClear_Selection_triggered();
+
     mCurrentlySelected = mRTreeContainer.within(
                 selectionRect.x(), selectionRect.y(), selectionRect.width(), selectionRect.height(),
                 ui->actionFind_only_Boxes->isChecked() ? 0 : 1);
 
-    qDebug() << "Size of mCurrentlySelected = " << mCurrentlySelected.size();
+    for ( auto index : mCurrentlySelected )
+    {
+        mItemMap[index]->highlight(true);
+    }
+}
+
+void MainWindow::handleMouseMove(double x, double y)
+{
+    if ( mCurrentlySelected.size() > 0 )
+        on_actionClear_Selection_triggered();
+
+    mCurrentlySelected = mRTreeContainer.nearest(x, y, ui->actionFind_only_Boxes->isChecked() ? 0 : 1);
 
     for ( auto index : mCurrentlySelected )
     {
@@ -69,8 +83,6 @@ void MainWindow::on_actionAdd_Random_Point_triggered()
         x = 10;
     if ( y < minYPos-pointDiameter )
         y = 10;
-
-    qDebug() << "x = " << x;
 
     QGraphicsItem* item = new GraphicPoint(x-pointDiameter, y-pointDiameter, pointDiameter, pointDiameter,
                                            QColor("yellow"), QColor("green"));
@@ -108,8 +120,6 @@ void MainWindow::on_actionAdd_Random_Box_triggered()
 
 void MainWindow::on_actionSet_Box_Selection_Mode_triggered(bool flag)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     if ( flag )
     {
         ui->graphicsView->setMouseTracking(false);
@@ -119,8 +129,6 @@ void MainWindow::on_actionSet_Box_Selection_Mode_triggered(bool flag)
 
 void MainWindow::on_actionSet_Nearest_Selection_Mode_triggered(bool flag)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     if ( flag )
     {
         ui->graphicsView->setMouseTracking(true);

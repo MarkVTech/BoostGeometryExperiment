@@ -22,6 +22,7 @@ protected:
 
 signals:
     void selectionAreaChanged(const QRectF& selectionRect);
+    void mouseMove(double x, double y);
 
 private:
     QGraphicsRectItem *mSelectionRectItem = nullptr;
@@ -31,8 +32,5 @@ private:
 
     QString mMode = "box";
 
-    // QObject interface
-public:
-    bool event(QEvent *event) override;
 };
 

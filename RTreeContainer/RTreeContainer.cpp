@@ -7,14 +7,17 @@ using namespace std::placeholders;
 
 bool IsPoint(RTreeContainer::BoxValue const& v)
 {
-    qDebug() << __PRETTY_FUNCTION__;
     return v.second.type == 1;
 }
 
 bool IsRect(RTreeContainer::BoxValue const& v)
 {
-    qDebug() << __PRETTY_FUNCTION__;
     return v.second.type == 0;
+}
+
+bool IsWithinRange(RTreeContainer::BoxValue const& v, double x, double y, double distance)
+{
+    return bg::distance(v.first, RTreeContainer::Point(x, y)) < distance;
 }
 
 RTreeContainer::RTreeContainer()
@@ -71,15 +74,16 @@ std::vector<unsigned int> RTreeContainer::nearest(double x, double y, unsigned i
 
     RTreeContainer::Point p(x, y);
 
-    std::function<bool(RTreeContainer::BoxValue const&)> func;
+    std::function<bool(RTreeContainer::BoxValue const&)> typeFunc;
 
     if ( itemType == 0 )
-        func = std::bind(&IsRect, _1);
+        typeFunc = std::bind(&IsRect, _1);
     else
-        func = std::bind(&IsPoint, _1);
+        typeFunc = std::bind(&IsPoint, _1);
 
-    for ( RTree::const_query_iterator it = mRTree.qbegin(bgi::nearest(p, 5) &&
-                                                         bgi::satisfies(func));
+    auto rangeFunc = std::bind(&IsWithinRange, _1, x, y, 5);
+    for ( RTree::const_query_iterator it = mRTree.qbegin(bgi::satisfies(rangeFunc) &&
+                                                         bgi::satisfies(typeFunc));
           it != mRTree.qend(); ++it )
     {
         result.push_back(it->second.id);
