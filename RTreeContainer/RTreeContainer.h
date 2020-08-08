@@ -40,6 +40,7 @@ public:
     void addPoint(double x, double y, unsigned int id);
 
     std::vector<unsigned int> within(double x, double y, double width, double height, unsigned int itemType);
+    std::vector<unsigned int> nearest(double x, double y, unsigned int itemType);
 
 private:
     RTree mRTree;

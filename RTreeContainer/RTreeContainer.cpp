@@ -57,7 +57,29 @@ std::vector<unsigned int> RTreeContainer::within(double x, double y, double widt
 
     for ( RTree::const_query_iterator it = mRTree.qbegin(bgi::within(box_region) &&
                                                          bgi::satisfies(func));
-                                                         //bgi::satisfies(IsRect));
+          it != mRTree.qend(); ++it )
+    {
+        result.push_back(it->second.id);
+    }
+
+    return result;
+}
+
+std::vector<unsigned int> RTreeContainer::nearest(double x, double y, unsigned int itemType)
+{
+    std::vector<unsigned int> result;
+
+    RTreeContainer::Point p(x, y);
+
+    std::function<bool(RTreeContainer::BoxValue const&)> func;
+
+    if ( itemType == 0 )
+        func = std::bind(&IsRect, _1);
+    else
+        func = std::bind(&IsPoint, _1);
+
+    for ( RTree::const_query_iterator it = mRTree.qbegin(bgi::nearest(p, 5) &&
+                                                         bgi::satisfies(func));
           it != mRTree.qend(); ++it )
     {
         result.push_back(it->second.id);
