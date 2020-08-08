@@ -17,27 +17,16 @@ namespace bg = boost::geometry;
 namespace bgi = boost::geometry::index;
 
 
+struct Info
+{
+    unsigned int id;
+    unsigned char type;
+};
+
 class RTreeContainer
 {
 public:
     static const int pointDiam=10;
-
-    struct Info
-    {
-        Info(unsigned int id, unsigned char type) :
-            id(id),
-            type(type) {}
-
-        Info& operator=(const Info& other)
-        {
-            id = other.id;
-            type = other.type;
-            return *this;
-        }
-
-        unsigned int id;
-        unsigned char type;
-    };
 
     typedef bg::model::point<unsigned int, 2, bg::cs::cartesian> Point;
     typedef bg::model::box<Point> Box;

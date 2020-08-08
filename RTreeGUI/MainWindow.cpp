@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    ui->graphicsView->setMouseTracking(false);
+
     group->addAction(ui->actionSet_Box_Selection_Mode);
     group->addAction(ui->actionSet_Nearest_Selection_Mode);
 
@@ -35,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     //ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
-    connect(mScene, SIGNAL(selectionChanged(QRectF)), this, SLOT(handleSelectionChanged(QRectF)));
+    connect(mScene, SIGNAL(selectionAreaChanged(QRectF)), this, SLOT(handleSelectionAreaChanged(QRectF)));
 }
 
 MainWindow::~MainWindow()
@@ -43,10 +45,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::handleSelectionChanged(const QRectF &selectionRect)
+void MainWindow::handleSelectionAreaChanged(const QRectF &selectionRect)
 {
     qDebug() << __PRETTY_FUNCTION__ << " selection: " << selectionRect;
-    mCurrentlySelected = mRTree.within(
+    mCurrentlySelected = mRTreeContainer.within(
                 selectionRect.x(), selectionRect.y(), selectionRect.width(), selectionRect.height(),
                 ui->actionFind_only_Boxes->isChecked() ? 0 : 1);
 
@@ -76,7 +78,7 @@ void MainWindow::on_actionAdd_Random_Point_triggered()
 
     mItemMap.insert(mItemID, dynamic_cast<ICommon*>(item));
 
-    mRTree.addPoint(x, y,mItemID++);
+    mRTreeContainer.addPoint(x, y,mItemID++);
 }
 
 void MainWindow::on_actionAdd_Random_Box_triggered()
@@ -101,7 +103,7 @@ void MainWindow::on_actionAdd_Random_Box_triggered()
 
     mItemMap.insert(mItemID, dynamic_cast<ICommon*>(item));
 
-    mRTree.addBox(x, y, w, h, mItemID++);
+    mRTreeContainer.addBox(x, y, w, h, mItemID++);
 }
 
 void MainWindow::on_actionSet_Box_Selection_Mode_triggered(bool flag)
@@ -109,7 +111,10 @@ void MainWindow::on_actionSet_Box_Selection_Mode_triggered(bool flag)
     qDebug() << __PRETTY_FUNCTION__;
 
     if ( flag )
+    {
+        ui->graphicsView->setMouseTracking(false);
         mScene->setMode("box");
+    }
 }
 
 void MainWindow::on_actionSet_Nearest_Selection_Mode_triggered(bool flag)
@@ -117,7 +122,10 @@ void MainWindow::on_actionSet_Nearest_Selection_Mode_triggered(bool flag)
     qDebug() << __PRETTY_FUNCTION__;
 
     if ( flag )
+    {
+        ui->graphicsView->setMouseTracking(true);
         mScene->setMode("nearest");
+    }
 }
 
 void MainWindow::on_actionClear_Selection_triggered()

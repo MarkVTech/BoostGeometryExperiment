@@ -21,7 +21,7 @@ protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
 signals:
-    void selectionChanged(const QRectF& selectionRect);
+    void selectionAreaChanged(const QRectF& selectionRect);
 
 private:
     QGraphicsRectItem *mSelectionRectItem = nullptr;

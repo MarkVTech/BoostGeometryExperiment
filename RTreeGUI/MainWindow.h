@@ -30,7 +30,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void handleSelectionChanged(const QRectF& selectionRect);
+    void handleSelectionAreaChanged(const QRectF& selectionRect);
 
     void on_actionAdd_Random_Point_triggered();
     void on_actionAdd_Random_Box_triggered();
@@ -48,7 +48,7 @@ private:
     QMap<unsigned int, ICommon*> mItemMap;
     unsigned int mItemID = 0;
 
-    RTreeContainer mRTree;
+    RTreeContainer mRTreeContainer;
 
     QString mMode = "box"; // or "near"
 

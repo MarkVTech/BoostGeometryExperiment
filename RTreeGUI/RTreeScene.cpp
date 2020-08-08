@@ -17,7 +17,6 @@ void RTreeScene::setMode(const QString &mode)
     mMode = mode;
 }
 
-
 void RTreeScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if ( mMode == "box" )
@@ -36,10 +35,12 @@ void RTreeScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
 
-    //qDebug() << __PRETTY_FUNCTION__;
+    qDebug() << __PRETTY_FUNCTION__;
 
-    if ( !((event->buttons() & Qt::LeftButton)  == Qt::LeftButton) && mMode == "nearest" )
-        qDebug() << "YES!";
+    if ( mMode == "nearest" )
+    {
+        qDebug() << "NEAREST!";
+    }
 
     if ( mMode == "box" )
     {
@@ -66,7 +67,7 @@ void RTreeScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             delete mSelectionRectItem;
             mSelectionRectItem = nullptr;
 
-            emit selectionChanged(mSelectionRect);
+            emit selectionAreaChanged(mSelectionRect);
         }
     }
 
