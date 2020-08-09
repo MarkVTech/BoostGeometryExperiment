@@ -2,7 +2,7 @@
 
 Using Boost.Geometry library to better understand use of R-tree spatial index.
 
-Uses Qt 5.15 and Boost 1.73, MinGW compiler on Windows.
+Uses Qt 5.15 and Boost 1.70, MinGW compiler on Windows.
 
 Boost dependencies are included in the source tree.  Geometry is header only, no libraries are needed.
 
