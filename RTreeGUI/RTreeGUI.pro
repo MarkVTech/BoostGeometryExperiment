@@ -37,8 +37,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-INCLUDEPATH += $$(BOOST_PATH)/include/boost-1_70
-DEPENDPATH += $$(BOOST_PATH)/include/boost-1_70
+#INCLUDEPATH += $$(BOOST_PATH)/include/boost-1_70
+#DEPENDPATH += $$(BOOST_PATH)/include/boost-1_70
+INCLUDEPATH += ../Boost1_70_0
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../RTreeContainer/release/ -lRTreeContainer
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../RTreeContainer/debug/ -lRTreeContainer

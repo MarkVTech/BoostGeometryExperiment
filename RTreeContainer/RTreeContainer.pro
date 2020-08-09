@@ -29,5 +29,6 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-INCLUDEPATH += $$(BOOST_PATH)/include/boost-1_70
-DEPENDPATH += $$(BOOST_PATH)/include/boost-1_70
+#INCLUDEPATH += $$(BOOST_PATH)/include/boost-1_70
+#DEPENDPATH += $$(BOOST_PATH)/include/boost-1_70
+INCLUDEPATH += ../Boost1_70_0
