@@ -11,13 +11,14 @@ These two functions identify the type of geometric object.
 ```c++
 8      bool IsPoint(RTreeContainer::BoxValue const& v)
 9      {
-10         return v.second.type == 1;
-11     }
-12     
-13     bool IsRect(RTreeContainer::BoxValue const& v)
-14     {
-15         return v.second.type == 0;
-16     }
+10         // A comment
+11         return v.second.type == 1;
+12     }
+13     
+14     bool IsRect(RTreeContainer::BoxValue const& v)
+15     {
+16         return v.second.type == 0;
+17     }
 ```
 
 <br/>
@@ -46,9 +47,8 @@ class Zebra{
 +run()
 }
 
-
 ```
-<!--MCONTENT {content: "classDiagram<br/>\nAnimal <|-- Duck<br/>\nAnimal <|-- Fish<br/>\nAnimal <|-- Zebra<br/>\nAnimal : +int age<br/>\nAnimal : +String gender<br/>\nAnimal: +isMammal()<br/>\nAnimal: +mate()<br/>\nclass Duck{<br/>\n+String beakColor<br/>\n+swim()<br/>\n+quack()<br/>\n}<br/>\nclass Fish{<br/>\n\\-int sizeInFeet<br/>\n\\-canEat()<br/>\n}<br/>\nclass Zebra{<br/>\n+bool is\\_wild<br/>\n+run()<br/>\n}<br/>\n\n<br/>"} --->
+<!--MCONTENT {content: "classDiagram<br/>\nAnimal <|-- Duck<br/>\nAnimal <|-- Fish<br/>\nAnimal <|-- Zebra<br/>\nAnimal : +int age<br/>\nAnimal : +String gender<br/>\nAnimal: +isMammal()<br/>\nAnimal: +mate()<br/>\nclass Duck{<br/>\n+String beakColor<br/>\n+swim()<br/>\n+quack()<br/>\n}<br/>\nclass Fish{<br/>\n\\-int sizeInFeet<br/>\n\\-canEat()<br/>\n}<br/>\nclass Zebra{<br/>\n+bool is\\_wild<br/>\n+run()<br/>\n}<br/>\n<br/>"} --->
 
 <br/>
 
