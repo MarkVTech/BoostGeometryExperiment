@@ -7,6 +7,7 @@ using namespace std::placeholders;
 
 bool IsPoint(RTreeContainer::BoxValue const& v)
 {
+    // A comment
     return v.second.type == 1;
 }
 
