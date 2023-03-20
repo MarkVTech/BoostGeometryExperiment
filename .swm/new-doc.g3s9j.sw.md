@@ -5,14 +5,30 @@ file_version: 1.1.2
 app_version: 1.4.6
 ---
 
-Some info about IsPoint that is very interesting.
+```cpp
+aSDSAFSDAFDSA
+```
+
+<br/>
+
+
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 RTreeContainer/RTreeContainer.cpp
 ```c++
-8      bool IsPoint(RTreeContainer::BoxValue const& v)
-9      {
-10         return v.second.type == 1;
-11     }
+28     void RTreeContainer::addBox(double x, double y, double width, double height, unsigned int id)
+29     {
+30         RTreeContainer::Point p1(x, y);
+31         RTreeContainer::Point p2(x+width, y+height);
+32     
+33         RTreeContainer::Box b(p1, p2);
+34     
+35         mRTree.insert(std::make_pair(b, Info{id, 0}));
+36     }
+```
+
+<br/>
+
+```
 ```
 
 <br/>
