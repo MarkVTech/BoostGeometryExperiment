@@ -26,3 +26,7 @@ void GraphicBox::highlight(bool highlighted)
 
     mIsHighlighted = highlighted;
 }
+
+void newFunctionForSwimm()
+{
+}
