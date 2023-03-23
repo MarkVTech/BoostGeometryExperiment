@@ -69,9 +69,24 @@ C -->|One| D[Laptop]
 C -->|Two| E[iPhone]
 C -->|Three| F[fa:fa-car Car]
 
-
 ```
-<!--MCONTENT {content: "graph TD<br/>\nA\\[Christmas\\] \\-\\-\\>|Get money| B(Go shopping)<br/>\nB \\-\\-\\> C{Let me think}<br/>\nC \\-\\-\\>|One| D\\[Laptop\\]<br/>\nC \\-\\-\\>|Two| E\\[iPhone\\]<br/>\nC \\-\\-\\>|Three| F\\[fa:fa-car Car\\]<br/>\n\n<br/>"} --->
+<!--MCONTENT {content: "graph TD<br/>\nA\\[Christmas\\] \\-\\-\\>|Get money| B(Go shopping)<br/>\nB \\-\\-\\> C{Let me think}<br/>\nC \\-\\-\\>|One| D\\[Laptop\\]<br/>\nC \\-\\-\\>|Two| E\\[iPhone\\]<br/>\nC \\-\\-\\>|Three| F\\[fa:fa-car Car\\]<br/>\n<br/>"} --->
+
+<br/>
+
+Draw a box
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 RTreeGUI/GraphicBox.cpp
+```c++
+8      GraphicBox::GraphicBox(qreal x, qreal y, qreal width, qreal height, const QColor &color, const QColor &hightlightColor, QGraphicsItem* parent) :
+9          QGraphicsRectItem(x, y, width, height, parent),
+10         mColor(color),
+11         mHighlightColor(hightlightColor)
+12     {
+13         setPen(color);
+14     }
+15     
+```
 
 <br/>
 
