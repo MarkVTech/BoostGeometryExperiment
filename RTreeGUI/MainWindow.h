@@ -24,6 +24,7 @@ public:
     static constexpr unsigned int minXPos = 10;
     static constexpr unsigned int maxXPos = 600;
     static constexpr unsigned int minYPos = 10;
+    static constexpr float nonsense = 42.123;
     static constexpr unsigned int maxYPos = 440;
 
     MainWindow(QWidget *parent = nullptr);
