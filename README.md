@@ -1,5 +1,7 @@
 # BoostGeometryExperiment
 
+Article [here](https://markvtechblog.wordpress.com/simple-boost-geometry-spatial-index-r-tree-demo/).
+
 Using Boost.Geometry library to better understand use of R-tree spatial index.
 
 Uses Qt 5.15 and Boost 1.70, MinGW compiler on Windows.
